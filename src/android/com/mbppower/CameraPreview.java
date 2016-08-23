@@ -32,7 +32,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     private final String takePictureAction = "takePicture";
     private final String showCameraAction = "showCamera";
     private final String hideCameraAction = "hideCamera";
-
+    private final String hasCameraAction = "hasCamera";
+    
     public static final int START_CAMERA_SEC = 0;
     public static final int PERMISSION_DENIED_ERROR = 20;
 
@@ -78,6 +79,9 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
         }
         else if (switchCameraAction.equals(action)){
             return switchCamera(args, callbackContext);
+        }
+        else if (hasCameraAction.equals(action)){
+            return hasCamera(args, callbackContext);
         }
 
         return false;
@@ -311,6 +315,18 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     private boolean setOnPictureTakenHandler(JSONArray args, CallbackContext callbackContext) {
         Log.d(TAG, "setOnPictureTakenHandler");
         takePictureCallbackContext = callbackContext;
+        return true;
+    }
+
+    private boolean hasCamera(JSONArray args, CallbackContext callbackContext) {
+        Log.d(TAG, "hasCamera");
+
+        if(cordova.getActivity().getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            callbackContext.success();
+        }
+        else {
+            callbackContext.error("");
+        }
         return true;
     }
 }

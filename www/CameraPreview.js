@@ -48,4 +48,9 @@ CameraPreview.disable = function(disable) {
   exec(null, null, PLUGIN_NAME, "disable", [disable]);
 };
 
+CameraPreview.hasCamera = function(onHasCamera) {
+  exec(onHasCamera, onHasCamera, PLUGIN_NAME, "hasCamera", []);
+};
+
+
 module.exports = CameraPreview;
